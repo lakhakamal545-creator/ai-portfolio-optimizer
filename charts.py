@@ -16,20 +16,43 @@ def apply_premium_layout(fig, title=""):
         plot_bgcolor=PAPER_COLOR,
         paper_bgcolor=BG_COLOR,
         font=dict(color=TEXT_COLOR, family="Inter, sans-serif"),
-        margin=dict(l=40, r=40, t=60, b=40),
+        margin=dict(l=40, r=40, t=80, b=40),
         xaxis=dict(showgrid=True, gridcolor='#2b3a5a', zeroline=False),
         yaxis=dict(showgrid=True, gridcolor='#2b3a5a', zeroline=False),
-        legend=dict(bgcolor='rgba(0,0,0,0)', font=dict(color=TEXT_COLOR)),
+        # LEGEND KO UPAR SHIFT KIYA HAI TAARI OVERLAP NA HO
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            bgcolor='rgba(0,0,0,0)', 
+            font=dict(color=TEXT_COLOR)
+        ),
         hoverlabel=dict(bgcolor=PAPER_COLOR, font_size=13, font_family="Inter")
     )
     return fig
 
 def plot_efficient_frontier(random_results, max_sharpe, min_vol, eff_returns, eff_vols):
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=random_results[0,:], y=random_results[1,:], mode='markers', marker=dict(color=random_results[2,:], colorscale='Viridis', showscale=True, size=5, colorbar=dict(title='Sharpe Ratio')), name='Random Portfolios'))
+    
+    fig.add_trace(go.Scatter(
+        x=random_results[0,:], y=random_results[1,:], 
+        mode='markers', 
+        marker=dict(
+            color=random_results[2,:], 
+            colorscale='Viridis', 
+            showscale=True, 
+            size=5, 
+            colorbar=dict(title='Sharpe Ratio', x=1.05) # COLOR BAR KO THODA RIGHT SHIFT KIYA
+        ), 
+        name='Random Portfolios'
+    ))
+    
     fig.add_trace(go.Scatter(x=eff_vols, y=eff_returns, mode='lines', line=dict(color='white', width=2, dash='dash'), name='Efficient Frontier'))
     fig.add_trace(go.Scatter(x=[max_sharpe['volatility']], y=[max_sharpe['return']], mode='markers+text', marker=dict(color='red', size=12, symbol='star'), name='Max Sharpe', text=['Max Sharpe'], textposition="top center"))
     fig.add_trace(go.Scatter(x=[min_vol['volatility']], y=[min_vol['return']], mode='markers+text', marker=dict(color='blue', size=12, symbol='star'), name='Min Volatility', text=['Min Volatility'], textposition="bottom center"))
+    
     apply_premium_layout(fig, "Efficient Frontier & Capital Market Line")
     fig.update_xaxes(title="Annualized Volatility (Risk)")
     fig.update_yaxes(title="Annualized Return")

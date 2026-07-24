@@ -16,16 +16,17 @@ def apply_premium_layout(fig, title=""):
         plot_bgcolor=PAPER_COLOR,
         paper_bgcolor=BG_COLOR,
         font=dict(color=TEXT_COLOR, family="Inter, sans-serif"),
-        margin=dict(l=40, r=40, t=80, b=40),
+        # Niche ka margin (b=100) badha diya hai taaki legend ke liye jagah ban jaye
+        margin=dict(l=40, r=40, t=60, b=100), 
         xaxis=dict(showgrid=True, gridcolor='#2b3a5a', zeroline=False),
         yaxis=dict(showgrid=True, gridcolor='#2b3a5a', zeroline=False),
-        # LEGEND KO UPAR SHIFT KIYA HAI TAARI OVERLAP NA HO
+        # LEGEND KO CHART KE NICHE SHIFT KIYA HAI
         legend=dict(
             orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1,
+            yanchor="top",
+            y=-0.2,
+            xanchor="center",
+            x=0.5,
             bgcolor='rgba(0,0,0,0)', 
             font=dict(color=TEXT_COLOR)
         ),
@@ -44,7 +45,7 @@ def plot_efficient_frontier(random_results, max_sharpe, min_vol, eff_returns, ef
             colorscale='Viridis', 
             showscale=True, 
             size=5, 
-            colorbar=dict(title='Sharpe Ratio', x=1.05) # COLOR BAR KO THODA RIGHT SHIFT KIYA
+            colorbar=dict(title='Sharpe Ratio', x=1.02) # Color bar right side mein
         ), 
         name='Random Portfolios'
     ))

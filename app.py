@@ -27,7 +27,7 @@ st.markdown('''
     </style>
 ''', unsafe_allow_html=True)
 
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/BlackRock_logo.svg/512px-BlackRock_logo.svg.png", width=150)
+st.sidebar.markdown("<h1 style='color: #D4AF37;'>🏛️ KL. Finance</h1>", unsafe_allow_html=True)
 st.sidebar.markdown("### AI Portfolio Optimization")
 page = st.sidebar.radio("Navigation", ["Optimizer & MPT", "Risk Analytics", "Monte Carlo Simulation", "Correlation Analysis", "Performance Dashboard", "Export Report"])
 
